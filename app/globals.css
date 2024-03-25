@@ -3,31 +3,105 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary-color: #2c3775;
+  --secondary-color: #e8ecff;
+  --auxiliary-color: #9f9f9f;
+
+  --primary-gradient-start: #e8ecff;
+  --primary-gradient-end: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html,
+body,
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* Private Dashboard */
+.dashboard {
+  @apply h-screen w-[full] flex bg-gradient-to-b from-[#E8ECFF] to-[#FFFFFF];
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.dashboard-container {
+  @apply flex flex-col items-start justify-start h-full w-full;
+}
+
+/* Dashboard Navigation Aside */
+.dashboard-aside {
+  @apply bg-white text-[var(--primary-color)] h-screen w-[300px] shadow-xl;
+}
+
+.dashboard-header {
+  @apply flex justify-start items-center font-bold m-6 text-[40px] italic;
+}
+
+.dashboard-links__container {
+  @apply font-bold mt-6;
+}
+
+.dashboard-links__container span {
+  @apply font-light uppercase text-[var(--auxiliary-color)] text-sm tracking-[3px] p-6;
+}
+
+.dashboard-links__container ul {
+  @apply mt-2;
+}
+
+.dashboard-links__container ul li {
+  @apply font-medium py-2 px-10 text-[var(--auxiliary-color)];
+}
+
+.dashboard-links__container ul li.active {
+  @apply font-semibold bg-[var(--secondary-color)] text-[var(--primary-color)] border-l-4 border-[#2C3775];
+}
+
+.dashboard-links__container ul li a {
+  @apply flex justify-start items-center gap-4;
+}
+
+.dashboard-links__container ul li svg {
+  @apply w-6 h-6;
+}
+
+/* Dashboard Navbar */
+.dashboard-navbar {
+  @apply w-full flex justify-between items-center px-10 my-6;
+}
+
+.dashboard-navbar__user h2 {
+  @apply text-2xl font-bold text-[var(--primary-color)];
+}
+
+.dashboard-navbar__user p {
+  @apply text-sm font-medium text-[var(--auxiliary-color)];
+}
+
+.dashboard-navbar__info svg {
+  @apply text-[var(--primary-color)] w-6 h-6;
+}
+
+.dashboard-navbar__data {
+  @apply flex justify-between items-center bg-white shadow-lg px-2 py-2 rounded-full;
+}
+
+.dashboard-navbar__data .info {
+  @apply flex w-full justify-between items-center gap-4;
+}
+
+.dashboard-navbar__data .info svg {
+  @apply w-6 h-6 text-[var(--primary-color)];
+}
+
+.dashboard-navbar__data .searchbar {
+  @apply w-full bg-[var(--secondary-color)] flex justify-start items-center gap-2 px-4 py-2 rounded-full;
+}
+
+.dashboard-navbar__data .searchbar input {
+  @apply bg-[var(--secondary-color)] text-white;
+}
+
+.dashboard-navbar__data .navigation {
+  @apply flex w-full justify-center items-center gap-4 px-4;
 }
