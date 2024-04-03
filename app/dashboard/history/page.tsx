@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 
 import { PageHeader } from "@/components";
 import { toRelativeTime } from "@/app/lib/getRelativeTime";
+import {
+  getYear,
+  getDayOfWeek,
+  getDayOfMonth,
+  getMonth,
+} from "@/app/lib/getFormattedDate";
 
 interface Entry {
   date: string;
@@ -13,6 +19,8 @@ interface Entry {
 
 export default function HistoryPage() {
   const [entries, setEntries] = useState<Entry[]>([]);
+
+  const today = new Date();
 
   useEffect(() => {
     const entries = JSON.parse(localStorage.getItem("entries") || "[]");
@@ -26,14 +34,26 @@ export default function HistoryPage() {
         subtitle={"You will see all your movements here."}
       />
 
-      <div>
-        <h2>Filters</h2>
+      <div className="filters-container">
+        <div>
+          <span className="year">{getYear(today)}</span>
+          <div className="date-container">
+            <span>{getDayOfWeek(today)}</span>{" "}
+            <span>{getDayOfMonth(today)}</span>, <span>{getMonth(today)}</span>
+          </div>
+        </div>
+
+        <div className="filter-by-date">
+          <span>Go To Date</span>
+          <input type="date" name="year" id="year" />
+        </div>
       </div>
 
       <div className="main-history">
         <table className="table-fixed">
           <thead>
             <tr>
+              <th>Type</th>
               <th>Date</th>
               <th>Amount</th>
               <th>Description</th>
@@ -43,6 +63,7 @@ export default function HistoryPage() {
           <tbody>
             {entries.map((entry, index) => (
               <tr key={index} className={entry.entryType}>
+                <td>{entry.entryType}</td>
                 <td>{toRelativeTime(entry.date)}</td>
                 <td>
                   {entry.entryType === "expense" ? "-" : "+"} ${entry.amount}

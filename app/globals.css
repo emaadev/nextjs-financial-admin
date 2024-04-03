@@ -291,11 +291,11 @@ body,
 }
 
 .history-page .main-history thead th {
-  @apply text-lg text-[var(--primary-color)] text-left font-semibold px-4 py-2
+  @apply text-sm text-[var(--primary-color)] text-left font-medium px-4 py-2
 }
 
 .history-page .main-history tbody {
-  @apply text-sm text-[var(--auxiliary-color)] text-left transition-all
+  @apply text-sm text-[var(--primary-color)] text-left transition-all
 }
 
 .history-page .main-history tbody td {
@@ -303,23 +303,7 @@ body,
 }
 
 .history-page .main-history tbody tr {
-  @apply transition-all font-semibold
-}
-
-.history-page .main-history tbody tr.income {
-  @apply text-green-600
-}
-
-.history-page .main-history tbody tr.expense {
-  @apply text-red-600
-}
-
-.history-page .main-history tbody tr.saving {
-  @apply text-blue-600
-}
-
-.history-page .main-history tbody tr.investment {
-  @apply text-yellow-600
+  @apply transition-all font-light
 }
 
 .history-page .main-history tbody tr:hover {
@@ -331,7 +315,7 @@ body,
 }
 
 .history-page .main-history .edit-buttons button {
-  @apply flex justify-center items-center gap-2 text-white py-2 px-4 rounded-lg transition-all
+  @apply flex justify-center items-center gap-2 text-white py-2 px-4 rounded-lg transition-all font-semibold
 }
 
 .history-page .main-history .edit-buttons button:hover {
@@ -344,4 +328,28 @@ body,
 
 .history-page .main-history .edit-buttons button.delete {
   @apply bg-red-600
+}
+
+.history-page .filters-container {
+  @apply flex items-end justify-between w-full;
+}
+
+.history-page .filter-by-date {
+  @apply flex flex-col items-start w-[200px] justify-start;
+}
+
+.history-page .filter-by-date span {
+  @apply text-sm;
+}
+
+.history-page .filter-by-date input {
+  @apply px-4 py-1 bg-white shadow-lg rounded-lg w-full text-sm;
+}
+
+.history-page .filters-container .year {
+  @apply text-lg text-[var(--primary-color)] font-bold;
+}
+
+.history-page .filters-container .date-container {
+  @apply text-4xl text-[var(--primary-color)] font-bold;
 }
