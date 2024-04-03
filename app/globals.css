@@ -28,46 +28,55 @@ body,
   @apply flex flex-col items-start justify-start h-full w-full;
 }
 
+/* Dashboard Page */
+.dashboard-page {
+  @apply flex items-center justify-start flex-wrap w-full px-8;
+}
+
+.dashboard-page .tracker-container {
+  @apply flex items-center justify-start w-full gap-4;
+}
+
 /* Dashboard Navigation Aside */
-.dashboard-aside {
+.navigation-aside {
   @apply bg-white text-[var(--primary-color)] h-screen w-[300px] shadow-xl;
 }
 
-.dashboard-header {
+.navigation-header {
   @apply flex justify-start items-center font-bold m-6 text-[40px] italic;
 }
 
-.dashboard-links__container {
+.navigation-links__container {
   @apply font-bold mt-6;
 }
 
-.dashboard-links__container span {
+.navigation-links__container span {
   @apply font-light uppercase text-[var(--auxiliary-color)] text-sm tracking-[3px] p-6;
 }
 
-.dashboard-links__container ul {
+.navigation-links__container ul {
   @apply mt-2;
 }
 
-.dashboard-links__container ul li {
+.navigation-links__container ul li {
   @apply font-medium py-2 px-10 text-[var(--auxiliary-color)];
 }
 
-.dashboard-links__container ul li.active {
+.navigation-links__container ul li.active {
   @apply font-semibold bg-[var(--secondary-color)] text-[var(--primary-color)] border-l-4 border-[#2C3775];
 }
 
-.dashboard-links__container ul li a {
+.navigation-links__container ul li a {
   @apply flex justify-start items-center gap-4;
 }
 
-.dashboard-links__container ul li svg {
+.navigation-links__container ul li svg {
   @apply w-6 h-6;
 }
 
 /* Dashboard Navbar */
 .dashboard-navbar {
-  @apply w-full flex justify-between items-center px-10 my-6;
+  @apply w-full flex justify-between items-center my-6;
 }
 
 .dashboard-navbar__user h2 {
@@ -83,7 +92,7 @@ body,
 }
 
 .dashboard-navbar__data {
-  @apply flex justify-between items-center bg-white shadow-lg px-2 py-2 rounded-full;
+  @apply flex justify-between items-center bg-white shadow-md px-2 py-2 rounded-full;
 }
 
 .dashboard-navbar__data .info {
@@ -104,4 +113,46 @@ body,
 
 .dashboard-navbar__data .navigation {
   @apply flex w-full justify-center items-center gap-4 px-4;
+}
+
+/* InfoBox Styles */
+.infobox {
+  @apply w-full bg-white rounded-xl shadow-md flex items-center justify-start px-4 mt-6 py-4 gap-4;
+}
+
+.infobox .icon {
+  @apply w-12 h-12 rounded-full flex justify-center items-center;
+}
+
+.infobox .icon svg {
+  @apply text-white stroke-[12px];
+}
+
+.infobox svg {
+  @apply w-6 h-6;
+}
+
+.infobox .info {
+  @apply flex flex-col items-start justify-center;
+}
+
+.infobox .info h3 {
+  @apply text-sm font-medium text-[var(--auxiliary-color)];
+}
+
+.infobox .info span {
+  @apply text-3xl font-bold text-[var(--primary-color)];
+}
+
+/* Create Page */
+.dashboard-header {
+  @apply w-full flex flex-col justify-center items-start my-6;
+}
+
+.dashboard-header h2 {
+  @apply text-2xl font-bold text-[var(--primary-color)];
+}
+
+.dashboard-header p {
+  @apply text-sm font-medium text-[var(--auxiliary-color)];
 }
