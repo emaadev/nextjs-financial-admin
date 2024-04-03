@@ -1,7 +1,3 @@
-"use client";
-
-import ActiveNavbarContextProvider from "@/context/ActiveNavbarContext";
-
 import { Navigation } from "@/components";
 
 export default function DashboardLayout({
@@ -11,11 +7,9 @@ export default function DashboardLayout({
 }) {
   return (
     <main className="dashboard">
-      <ActiveNavbarContextProvider>
-        <Navigation />
+      <Navigation />
 
-        <section className="dashboard-container">{children}</section>
-      </ActiveNavbarContextProvider>
+      <section className="dashboard-container">{children}</section>
     </main>
   );
 }

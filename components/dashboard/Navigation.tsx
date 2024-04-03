@@ -2,14 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 
-import { useActiveNav } from "@/context/ActiveNavbarContext";
 import { accountLinks, navLinks } from "@/app/constants/data";
-
 import { NavGroup, NavItem } from "@/components";
 
 const Navigation = () => {
-  const { active, setActive } = useActiveNav();
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <aside className="navigation-aside">
@@ -25,8 +25,8 @@ const Navigation = () => {
             key={link.href}
             href={link.href}
             icon={React.createElement(link.icon)}
-            isActive={active === link.href}
-            setActive={setActive}
+            isActive={pathname === link.href}
+            setActive={() => router.push(link.href)}
           >
             {link.label}
           </NavItem>
@@ -39,8 +39,8 @@ const Navigation = () => {
             key={link.href}
             href={link.href}
             icon={React.createElement(link.icon)}
-            isActive={active === link.href}
-            setActive={setActive}
+            isActive={pathname === link.href}
+            setActive={() => router.push(link.href)}
           >
             {link.label}
           </NavItem>

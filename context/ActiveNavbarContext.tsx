@@ -1,3 +1,5 @@
+// Attention: This context was replaced with 'next/navigation' tools
+
 import { createContext, useState, useContext } from "react";
 
 type NavType = string;
