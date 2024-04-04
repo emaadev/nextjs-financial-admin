@@ -6,4 +6,6 @@ import NavItem from "./dashboard/NavItem";
 import InfoBox from "./shared/InfoBox";
 import PageHeader from "./shared/PageHeader";
 
-export { Navigation, Navbar, InfoBox, NavGroup, NavItem, PageHeader };
+import BarChart from "./charts/BarChart";
+
+export { Navigation, Navbar, InfoBox, NavGroup, NavItem, PageHeader, BarChart };

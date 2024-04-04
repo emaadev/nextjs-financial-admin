@@ -9,16 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nivo/bar": "^0.85.1",
+    "@nivo/line": "^0.85.1",
     "date-fns": "^3.6.0",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.0.1"
+    "react-icons": "^5.0.1",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",

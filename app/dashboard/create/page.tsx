@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { entryTypes } from "@/app/constants/data";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { PageHeader } from "@/components";
+import { uuid } from "uuidv4";
+
 
 export default function CreatePage() {
   const router = useRouter();
@@ -18,6 +20,7 @@ export default function CreatePage() {
     e.preventDefault();
 
     const formData = {
+      id: uuid(),
       entryType,
       amount,
       date,

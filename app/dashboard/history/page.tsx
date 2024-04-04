@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import { PageHeader } from "@/components";
 import { toRelativeTime } from "@/app/lib/getRelativeTime";
@@ -10,7 +11,11 @@ import {
   getMonth,
 } from "@/app/lib/getFormattedDate";
 
+import { FaRegEdit } from "react-icons/fa";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+
 interface Entry {
+  id: any;
   date: string;
   entryType: string;
   amount: number;
@@ -19,13 +24,43 @@ interface Entry {
 
 export default function HistoryPage() {
   const [entries, setEntries] = useState<Entry[]>([]);
+  const [displayDate, setDisplayDate] = useState<string>("All Entries");
 
-  const today = new Date();
+  // Filters to show all the entries in the history
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const filteredEntries = selectedDate
+    ? entries.filter((entry) => entry.date.startsWith(selectedDate))
+    : entries;
 
   useEffect(() => {
     const entries = JSON.parse(localStorage.getItem("entries") || "[]");
     setEntries(entries);
   }, []);
+
+  // Delete de entry from the local storage
+  const onDelete = (id: any) => {
+    if (confirm("Are you sure you want to delete this entry?")) {
+      const newEntries = entries.filter((entry) => entry.id !== id);
+      setEntries(newEntries);
+      localStorage.setItem("entries", JSON.stringify(newEntries));
+    }
+  };
+
+  // Show the date of the filtered entries selected
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = e.target.value;
+    setSelectedDate(selectedDate);
+
+    if (selectedDate) {
+      const dateObj = new Date(`${selectedDate}T00:00`);
+      const formattedDate = `${getDayOfWeek(dateObj)} ${getDayOfMonth(
+        dateObj
+      )}, ${getMonth(dateObj)} ${getYear(dateObj)}`;
+      setDisplayDate(formattedDate);
+    } else {
+      setDisplayDate("All Entries");
+    }
+  };
 
   return (
     <section className="history-page">
@@ -36,16 +71,22 @@ export default function HistoryPage() {
 
       <div className="filters-container">
         <div>
-          <span className="year">{getYear(today)}</span>
           <div className="date-container">
-            <span>{getDayOfWeek(today)}</span>{" "}
-            <span>{getDayOfMonth(today)}</span>, <span>{getMonth(today)}</span>
+            <span>{displayDate}</span>
           </div>
         </div>
 
         <div className="filter-by-date">
           <span>Go To Date</span>
-          <input type="date" name="year" id="year" />
+          <input
+            type="date"
+            name="year"
+            id="year"
+            onChange={(e) => {
+              setSelectedDate(e.target.value);
+              handleDateChange(e);
+            }}
+          />
         </div>
       </div>
 
@@ -61,8 +102,8 @@ export default function HistoryPage() {
           </thead>
 
           <tbody>
-            {entries.map((entry, index) => (
-              <tr key={index} className={entry.entryType}>
+            {filteredEntries.map((entry) => (
+              <tr key={entry.id} className={entry.entryType}>
                 <td>{entry.entryType}</td>
                 <td>{toRelativeTime(entry.date)}</td>
                 <td>
@@ -71,8 +112,13 @@ export default function HistoryPage() {
                 <td>{entry.comments}</td>
 
                 <td className="edit-buttons">
-                  <button className="edit">Edit</button>
-                  <button className="delete">Delete</button>
+                  <Link href={`/edit/${entry.id}`} className="edit">
+                    <FaRegEdit />
+                  </Link>
+
+                  <button className="delete" onClick={() => onDelete(entry.id)}>
+                    <MdOutlineDeleteOutline />
+                  </button>
                 </td>
               </tr>
             ))}
