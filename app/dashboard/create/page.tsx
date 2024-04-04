@@ -47,7 +47,7 @@ export default function CreatePage() {
         subtitle={"Select the type of the entry and create it."}
       />
 
-      <form className="dashboard-form" onSubmit={handleSubmit}>
+      <form className="entry-form" onSubmit={handleSubmit}>
         {/* Entry Type of the Amount */}
         <div className="form-group">
           <label htmlFor="type">Type</label>

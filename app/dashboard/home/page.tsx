@@ -79,19 +79,20 @@ export default function DashboardPage() {
 
     const totalIncomes = filteredEntries
       .filter((entry) => entry.entryType === "income")
-      .reduce((acc, entry) => acc + entry.amount, 0);
+      .reduce((acc, entry) => acc + Number(entry.amount), 0);
 
     const totalExpenses = filteredEntries
       .filter((entry) => entry.entryType === "expense")
-      .reduce((acc, entry) => acc + entry.amount, 0);
+      .reduce((acc, entry) => acc + Number(entry.amount), 0);
 
     const totalSavings = filteredEntries
       .filter((entry) => entry.entryType === "saving")
-      .reduce((acc, entry) => acc + entry.amount, 0);
+      .reduce((acc, entry) => acc + Number(entry.amount), 0);
 
     const totalInvestments = filteredEntries
       .filter((entry) => entry.entryType === "investment")
-      .reduce((acc, entry) => acc + entry.amount, 0);
+      .reduce((acc, entry) => acc + Number(entry.amount), 0);
+
 
     setIncomes(totalIncomes);
     setExpenses(totalExpenses);

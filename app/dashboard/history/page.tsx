@@ -112,7 +112,7 @@ export default function HistoryPage() {
                 <td>{entry.comments}</td>
 
                 <td className="edit-buttons">
-                  <Link href={`/edit/${entry.id}`} className="edit">
+                  <Link href={`history/edit/${entry.id}`} className="edit">
                     <FaRegEdit />
                   </Link>
 

@@ -253,47 +253,55 @@ body,
   @apply flex items-center justify-center flex-wrap w-full gap-4 px-8;
 }
 
-.dashboard-form {
-  @apply flex flex-col items-center justify-center gap-4 mt-6;
+.entry-form {
+  @apply flex flex-col items-start justify-center gap-4 mt-6;
 }
 
-.dashboard-form .form-group {
+.entry-form .form-group {
   @apply flex flex-col items-start justify-start gap-1 w-full;
 }
 
-.dashboard-form .form-group label {
+.entry-form .form-group label {
   @apply text-lg font-semibold text-[var(--primary-color)];
 }
 
-.dashboard-form .form-group .type-selector {
+.entry-form .form-group .type-selector {
   @apply p-1 rounded-lg bg-white flex justify-start items-center gap-2 shadow-md;
 }
 
-.dashboard-form .form-group .type-selector button {
+.entry-form .form-group .type-selector button {
   @apply px-4 py-1 rounded-lg bg-transparent text-[var(--auxiliary-color)] transition-all;
 }
 
-.dashboard-form .form-group .type-selector button:hover {
+.entry-form .form-group .type-selector button:hover {
   @apply bg-[var(--auxiliary-color)] text-white;
 }
 
-.dashboard-form .form-group .type-selector button.active {
+.entry-form .form-group .type-selector button.active {
   @apply px-4 py-1 rounded-lg bg-[var(--secondary-color)] text-[var(--primary-color)];
 }
 
-.dashboard-form .form-group input, .dashboard-form .form-group textarea {
+.entry-form .form-group input, .entry-form .form-group textarea {
   @apply px-4 py-2 text-left rounded-lg bg-white shadow-md text-[var(--primary-color)] w-full;
 }
 
-.dashboard-form .submit-button {
+.entry-form .submit-button {
   @apply flex justify-center items-center gap-2 px-4 py-2 font-medium rounded-lg bg-[var(--primary-color)] text-white transition-all
 }
 
-.dashboard-form .submit-button svg {
+.entry-form .submit-button svg {
   @apply w-4 h-4;
 }
 
-.dashboard-form .submit-button:hover {
+.entry-form .submit-button:hover {
+  @apply opacity-75
+}
+
+.entry-form .cancel-button {
+  @apply flex justify-center items-center gap-2 px-4 py-2 font-medium rounded-lg bg-red-600 text-white transition-all
+}
+
+.entry-form .cancel-button:hover {
   @apply opacity-75
 }
 
@@ -384,4 +392,24 @@ body,
 
 .history-page .filters-container .date-container {
   @apply text-4xl text-[var(--primary-color)] font-bold;
+}
+
+/* Incomes Page */
+.incomes-page {
+  @apply flex items-center justify-center flex-wrap w-full gap-4 px-8;
+}
+
+/* Expenses Page */
+.expenses-page {
+  @apply flex items-center justify-center flex-wrap w-full gap-4 px-8;
+}
+
+/* Edit Page */
+.edit-page {
+  @apply flex items-center justify-center flex-wrap w-full gap-4 px-8;
+}
+
+/* Settings Page */
+.settings-page {
+  @apply flex items-center justify-center flex-wrap w-full gap-4 px-8;
 }
