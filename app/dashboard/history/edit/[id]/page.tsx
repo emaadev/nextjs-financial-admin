@@ -128,7 +128,7 @@ export default function EditPage() {
           <button
             type="button"
             className="cancel-button"
-            onClick={() => router.push("dashboard/history")}
+            onClick={() => router.back()}
           >
             Cancel
             <ImExit />
