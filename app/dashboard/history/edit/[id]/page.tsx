@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { PageHeader } from "@/components";
+
+import { PageHeader, Loading } from "@/components";
 import { entryTypes } from "@/app/constants/data";
-import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";
+
+import { IoMdSave } from "react-icons/io";
 import { ImExit } from "react-icons/im";
-import Loading from "@/components/shared/Loading";
 
 interface Entry {
   id: string;

@@ -5,7 +5,26 @@ import NavItem from "./dashboard/NavItem";
 
 import InfoBox from "./shared/InfoBox";
 import PageHeader from "./shared/PageHeader";
+import Loading from "./shared/Loading";
+import Filters from "./shared/Filters";
 
 import BarChart from "./charts/BarChart";
+import LineChart from "./charts/LineChart";
 
-export { Navigation, Navbar, InfoBox, NavGroup, NavItem, PageHeader, BarChart };
+import HistoryTable from "./tables/HistoryTable";
+import HistorySummary from "./tables/HistorySummary";
+
+export {
+  Navigation,
+  Navbar,
+  InfoBox,
+  NavGroup,
+  NavItem,
+  PageHeader,
+  BarChart,
+  HistoryTable,
+  LineChart,
+  Loading,
+  Filters,
+  HistorySummary,
+};

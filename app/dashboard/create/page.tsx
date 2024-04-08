@@ -57,6 +57,10 @@ export default function CreatePage() {
               <button
                 key={item.value}
                 className={entryType === item.value ? "active" : ""}
+                style={{
+                  backgroundColor:
+                    entryType === item.value ? item.color : "transparent",
+                }}
                 onClick={(e) => {
                   e.preventDefault();
                   setEntryType(item.value);

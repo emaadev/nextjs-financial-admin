@@ -1,13 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
-import { PageHeader } from "@/components";
-import LineChart from "@/components/charts/LineChart";
-
-import { FaRegEdit } from "react-icons/fa";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import { HistoryTable, PageHeader, LineChart } from "@/components";
 
 interface Entry {
   id: string;
@@ -50,7 +45,7 @@ export default function IncomesPage() {
   ];
 
   return (
-    <section className="incomes-page">
+    <section className="incomes-expenses__page">
       <PageHeader title={"Incomes"} subtitle={"All incomes along the year."} />
 
       <div className="line-chart">
@@ -58,40 +53,11 @@ export default function IncomesPage() {
         <LineChart data={lineChartData} />
       </div>
 
-      <div className="incomes-table">
-        <h2>All Incomes</h2>
-        <table className="table-fixed">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredEntries.map((entry) => (
-              <tr key={entry.id} className={entry.entryType}>
-                <td>{entry.date}</td>
-                <td>${entry.amount}</td>
-                <td>{entry.comments}</td>
-
-                <td className="edit-buttons">
-                  <Link
-                    href={`/dashboard/history/edit/${entry.id}`}
-                    className="edit"
-                  >
-                    <FaRegEdit />
-                  </Link>
-                  <button className="delete" onClick={() => onDelete(entry.id)}>
-                    <MdOutlineDeleteOutline />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <HistoryTable
+        entries={filteredEntries}
+        title={"All Incomes"}
+        onDelete={onDelete}
+      />
     </section>
   );
 }

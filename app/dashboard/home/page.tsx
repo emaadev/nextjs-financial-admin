@@ -2,9 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-import { BarChart, InfoBox, Navbar } from "@/components";
-import { toRelativeTime } from "@/app/lib/getRelativeTime";
-import { getMonth } from "date-fns";
+import {
+  BarChart,
+  Filters,
+  HistorySummary,
+  InfoBox,
+  Navbar,
+} from "@/components";
+import formatTime from "@/app/lib/formatTime";
 
 interface Entry {
   date: string;
@@ -29,28 +34,12 @@ export default function DashboardPage() {
   );
   const currentYear = new Date().getFullYear();
 
-  const [selectedYear, selectedMonthNumber] = selectedMonth.split("-");
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const selectedMonthName = monthNames[parseInt(selectedMonthNumber, 10) - 1];
-
   const monthOptions = Array.from({ length: 12 }, (_, index) => {
     const month = (index + 1).toString().padStart(2, "0");
     return `${currentYear}-${month}`;
   });
 
+  // Type of the entries
   const data = [
     {
       type: "Incomes",
@@ -70,8 +59,10 @@ export default function DashboardPage() {
     },
   ];
 
+  // Get the entries from the local storage
   useEffect(() => {
     const entries = JSON.parse(localStorage.getItem("entries") || "[]");
+
     const filteredEntries = entries.filter((entry) =>
       entry.date.startsWith(selectedMonth)
     );
@@ -85,14 +76,16 @@ export default function DashboardPage() {
       .filter((entry) => entry.entryType === "expense")
       .reduce((acc, entry) => acc + Number(entry.amount), 0);
 
-    const totalSavings = filteredEntries
-      .filter((entry) => entry.entryType === "saving")
-      .reduce((acc, entry) => acc + Number(entry.amount), 0);
+    const totalSavings =
+      totalIncomes -
+      totalExpenses +
+      filteredEntries
+        .filter((entry) => entry.entryType === "saving")
+        .reduce((acc, entry) => acc + Number(entry.amount), 0);
 
     const totalInvestments = filteredEntries
       .filter((entry) => entry.entryType === "investment")
       .reduce((acc, entry) => acc + Number(entry.amount), 0);
-
 
     setIncomes(totalIncomes);
     setExpenses(totalExpenses);
@@ -104,22 +97,11 @@ export default function DashboardPage() {
     <section className="dashboard-page">
       <Navbar />
 
-      <div className="dashboard-filters">
-        <label htmlFor="month">
-          Movements in {selectedMonthName}, {selectedYear}
-        </label>
-        <select
-          id="month"
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-        >
-          {monthOptions.map((month) => (
-            <option key={month} value={month}>
-              {month}
-            </option>
-          ))}
-        </select>
-      </div>
+      <Filters
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
+        monthOptions={monthOptions}
+      />
 
       <div className="tracker-container">
         <InfoBox count={incomes} type={"incomes"} />
@@ -133,30 +115,7 @@ export default function DashboardPage() {
         <BarChart data={data} />
       </div>
 
-      <div className="history-summary">
-        <span>History Summary</span>
-        <table className="table-fixed">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {entries.map((entry, index) => (
-              <tr key={index} className={entry.entryType}>
-                <td>{toRelativeTime(entry.date)}</td>
-                <td>
-                  {entry.entryType === "expense" ? "-" : "+"} ${entry.amount}
-                </td>
-                <td>{entry.comments}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <HistorySummary entries={entries} />
     </section>
   );
 }

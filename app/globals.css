@@ -274,11 +274,11 @@ body,
 }
 
 .entry-form .form-group .type-selector button:hover {
-  @apply bg-[var(--auxiliary-color)] text-white;
+  @apply bg-gray-200 text-[var(--primary-color)];
 }
 
 .entry-form .form-group .type-selector button.active {
-  @apply px-4 py-1 rounded-lg bg-[var(--secondary-color)] text-[var(--primary-color)];
+  @apply px-4 py-1 rounded-lg text-white;
 }
 
 .entry-form .form-group input, .entry-form .form-group textarea {
@@ -395,89 +395,84 @@ body,
 }
 
 /* Incomes Page */
-.incomes-page {
+.incomes-expenses__page {
   @apply flex items-center justify-center flex-wrap w-full gap-4 px-8;
 }
 
-.incomes-page h2 {
+.incomes-expenses__page h2 {
   @apply text-2xl font-bold text-[var(--primary-color)];
 }
 
-.incomes-page .line-chart {
+.incomes-expenses__page .line-chart {
   @apply w-full h-[400px] p-2 mb-10
 }
 
-.incomes-page .line-chart text {
+.incomes-expenses__page .line-chart text {
   @apply !text-[var(--primary-color)];
 }
 
-.incomes-page .line-chart span {
+.incomes-expenses__page .line-chart span {
   @apply text-sm text-[var(--auxiliary-color)] font-medium ml-4;
 }
 
-.incomes-page .incomes-table {
+.incomes-expenses__page .history-table {
   @apply p-2 overflow-y-auto overflow-x-hidden w-full;
 }
 
-.incomes-page .incomes-table table {
+.incomes-expenses__page .history-table table {
   @apply w-full;
 }
 
-.incomes-page .incomes-table::-webkit-scrollbar {
+.incomes-expenses__page .history-table::-webkit-scrollbar {
   width: 2px; 
 }
 
-.incomes-page .incomes-table::-webkit-scrollbar-thumb {
+.incomes-expenses__page .history-table::-webkit-scrollbar-thumb {
   background: var(--primary-color); 
 }
 
-.incomes-page .incomes-table thead {
+.incomes-expenses__page .history-table thead {
   @apply border-b-[1px] border-[var(--primary-color)]
 }
 
-.incomes-page .incomes-table thead th {
+.incomes-expenses__page .history-table thead th {
   @apply text-sm text-[var(--primary-color)] text-left font-medium px-4 py-2
 }
 
-.incomes-page .incomes-table tbody {
+.incomes-expenses__page .history-table tbody {
   @apply text-sm text-[var(--primary-color)] text-left transition-all
 }
 
-.incomes-page .incomes-table tbody td {
+.incomes-expenses__page .history-table tbody td {
   @apply px-4 py-2 
 }
 
-.incomes-page .incomes-table tbody tr {
+.incomes-expenses__page .history-table tbody tr {
   @apply transition-all font-light
 }
 
-.incomes-page .incomes-table tbody tr:hover {
+.incomes-expenses__page .history-table tbody tr:hover {
   @apply bg-[var(--secondary-color)]
 }
 
-.incomes-page .incomes-table tbody td.edit-buttons {
+.incomes-expenses__page .history-table tbody td.edit-buttons {
   @apply flex justify-center items-center gap-4
 }
 
-.incomes-page .incomes-table .edit-buttons a, .incomes-page .incomes-table .edit-buttons button {
+.incomes-expenses__page .history-table .edit-buttons a, .incomes-expenses__page .history-table .edit-buttons button {
   @apply flex justify-center items-center gap-2 text-white py-2 px-4 rounded-lg transition-all font-semibold
 }
 
-.incomes-page .incomes-table .edit-buttons a:hover, .incomes-page .incomes-table .edit-buttons button:hover {
+.incomes-expenses__page .history-table .edit-buttons a:hover, .incomes-expenses__page .history-table .edit-buttons button:hover {
   @apply opacity-80
 }
 
-.incomes-page .incomes-table .edit-buttons a.edit {
+.incomes-expenses__page .history-table .edit-buttons a.edit {
   @apply bg-blue-600
 }
 
-.incomes-page .incomes-table .edit-buttons button.delete {
+.incomes-expenses__page .history-table .edit-buttons button.delete {
   @apply bg-red-600
-}
-
-/* Expenses Page */
-.expenses-page {
-  @apply flex items-center justify-center flex-wrap w-full gap-4 px-8;
 }
 
 /* Edit Page */

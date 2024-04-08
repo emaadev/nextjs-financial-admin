@@ -24,17 +24,21 @@ export const entryTypes = [
   {
     label: "Income",
     value: "income",
+    color: "#5a8c49",
   },
   {
     label: "Expense",
     value: "expense",
+    color: "#db3d3d",
   },
   {
     label: "Saving",
     value: "saving",
+    color: "#2d7feb",
   },
   {
     label: "Investment",
     value: "investment",
+    color: "#ccab33",
   },
 ];

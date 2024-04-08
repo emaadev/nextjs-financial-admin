@@ -14,7 +14,7 @@ const Navigation = () => {
   return (
     <aside className="navigation-aside">
       <header className="navigation-header">
-        <Link href="/dashboard">
+        <Link href="/dashboard/home">
           Financial <br /> Admin
         </Link>
       </header>

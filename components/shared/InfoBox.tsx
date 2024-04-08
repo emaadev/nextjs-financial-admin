@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IoPieChartSharp } from "react-icons/io5";
 
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { GiReceiveMoney } from "react-icons/gi";
 import { PiChartLineDownLight, PiChartLineUpLight } from "react-icons/pi";
 import { RiArrowDownDoubleFill, RiArrowUpDoubleFill } from "react-icons/ri";
 
@@ -20,12 +21,12 @@ const infoBoxConfig = {
   },
   savings: {
     title: "Savings",
-    icon: <IoPieChartSharp />,
+    icon: <GiReceiveMoney />,
     color: "#2d7feb", // blue
   },
   investments: {
     title: "Investments",
-    icon: <IoPieChartSharp />,
+    icon: <FaMoneyBillTrendUp />,
     color: "#ccab33", // yellow
   },
 };

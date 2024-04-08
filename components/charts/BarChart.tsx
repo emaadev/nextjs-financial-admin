@@ -138,7 +138,7 @@ const BarChart = ({ data }: BarChartProps) => {
       }}
       axisLeft={{
         tickSize: 5,
-        tickPadding: -10,
+        tickPadding: 10,
         tickRotation: 0,
         legend: "Amount",
         legendPosition: "middle",
