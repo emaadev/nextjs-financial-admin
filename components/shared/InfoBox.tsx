@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { LoadingComponent } from "@/components";
+
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { GiReceiveMoney } from "react-icons/gi";
 import { PiChartLineDownLight, PiChartLineUpLight } from "react-icons/pi";
@@ -34,9 +36,10 @@ const infoBoxConfig = {
 interface InfoBoxProps {
   type: keyof typeof infoBoxConfig;
   count: number;
+  loading: boolean;
 }
 
-const InfoBox = ({ type, count }: InfoBoxProps) => {
+const InfoBox = ({ type, count, loading }: InfoBoxProps) => {
   const [lastCount, setLastCount] = useState<number>(count);
   const [arrowIcon, setArrowIcon] = useState<React.ReactNode>(null);
 
@@ -68,7 +71,7 @@ const InfoBox = ({ type, count }: InfoBoxProps) => {
 
       <div className="info">
         <h3>{title}</h3>
-        <span>${count}</span>
+        {loading ? <LoadingComponent /> : <span>${count}</span>}
       </div>
 
       <div className="status">{arrowIcon}</div>

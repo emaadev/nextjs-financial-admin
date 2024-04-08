@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import {
   BarChart,
   Filters,
   HistorySummary,
   InfoBox,
+  LoadingComponent,
   Navbar,
 } from "@/components";
-import formatTime from "@/app/lib/formatTime";
+import { NextResponse } from "next/server";
 
 interface Entry {
   date: string;
@@ -21,6 +22,7 @@ interface Entry {
 export default function DashboardPage() {
   // All the entries in the local storage
   const [entries, setEntries] = useState<Entry[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // Values of the actual entries
   const [incomes, setIncomes] = useState(0);
@@ -61,58 +63,70 @@ export default function DashboardPage() {
 
   // Get the entries from the local storage
   useEffect(() => {
-    const entries = JSON.parse(localStorage.getItem("entries") || "[]");
+    setLoading(true);
 
-    const filteredEntries = entries.filter((entry) =>
-      entry.date.startsWith(selectedMonth)
-    );
-    setEntries(filteredEntries);
+    try {
+      const entries = JSON.parse(localStorage.getItem("entries") || "[]");
 
-    const totalIncomes = filteredEntries
-      .filter((entry) => entry.entryType === "income")
-      .reduce((acc, entry) => acc + Number(entry.amount), 0);
+      const filteredEntries = entries.filter((entry: any) =>
+        entry.date.startsWith(selectedMonth)
+      );
+      setEntries(filteredEntries);
 
-    const totalExpenses = filteredEntries
-      .filter((entry) => entry.entryType === "expense")
-      .reduce((acc, entry) => acc + Number(entry.amount), 0);
+      const totalIncomes = filteredEntries
+        .filter((entry: any) => entry.entryType === "income")
+        .reduce((acc: number, entry: any) => acc + Number(entry.amount), 0);
 
-    const totalSavings =
-      totalIncomes -
-      totalExpenses +
-      filteredEntries
-        .filter((entry) => entry.entryType === "saving")
-        .reduce((acc, entry) => acc + Number(entry.amount), 0);
+      const totalExpenses = filteredEntries
+        .filter((entry: any) => entry.entryType === "expense")
+        .reduce((acc: number, entry: any) => acc + Number(entry.amount), 0);
 
-    const totalInvestments = filteredEntries
-      .filter((entry) => entry.entryType === "investment")
-      .reduce((acc, entry) => acc + Number(entry.amount), 0);
+      const totalSavings =
+        totalIncomes -
+        totalExpenses +
+        filteredEntries
+          .filter((entry: any) => entry.entryType === "saving")
+          .reduce((acc: number, entry: any) => acc + Number(entry.amount), 0);
 
-    setIncomes(totalIncomes);
-    setExpenses(totalExpenses);
-    setSavings(totalSavings);
-    setInvestments(totalInvestments);
+      const totalInvestments = filteredEntries
+        .filter((entry: any) => entry.entryType === "investment")
+        .reduce((acc: number, entry: any) => acc + Number(entry.amount), 0);
+
+      setIncomes(totalIncomes);
+      setExpenses(totalExpenses);
+      setSavings(totalSavings);
+      setInvestments(totalInvestments);
+    } catch (error) {
+      NextResponse.error();
+    } finally {
+      setLoading(false);
+    }
   }, [selectedMonth]);
 
   return (
     <section className="dashboard-page">
       <Navbar />
 
-      <Filters
-        selectedMonth={selectedMonth}
-        setSelectedMonth={setSelectedMonth}
-        monthOptions={monthOptions}
-      />
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        <Filters
+          selectedMonth={selectedMonth}
+          setSelectedMonth={setSelectedMonth}
+          monthOptions={monthOptions}
+        />
+      )}
 
       <div className="tracker-container">
-        <InfoBox count={incomes} type={"incomes"} />
-        <InfoBox count={expenses} type={"expenses"} />
-        <InfoBox count={savings} type={"savings"} />
-        <InfoBox count={investments} type={"investments"} />
+        <InfoBox count={incomes} type={"incomes"} loading={loading} />
+        <InfoBox count={expenses} type={"expenses"} loading={loading} />
+        <InfoBox count={savings} type={"savings"} loading={loading} />
+        <InfoBox count={investments} type={"investments"} loading={loading} />
       </div>
 
       <div className="bar-chart">
         <span>Movements Summary</span>
-        <BarChart data={data} />
+        {loading ? <LoadingComponent /> : <BarChart data={data} />}
       </div>
 
       <HistorySummary entries={entries} />

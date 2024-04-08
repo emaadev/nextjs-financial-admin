@@ -6,6 +6,7 @@ import NavItem from "./dashboard/NavItem";
 import InfoBox from "./shared/InfoBox";
 import PageHeader from "./shared/PageHeader";
 import Loading from "./shared/Loading";
+import LoadingComponent from "./shared/LoadingComponent";
 import Filters from "./shared/Filters";
 
 import BarChart from "./charts/BarChart";
@@ -27,4 +28,5 @@ export {
   Loading,
   Filters,
   HistorySummary,
+  LoadingComponent,
 };
