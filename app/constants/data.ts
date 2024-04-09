@@ -6,24 +6,51 @@ import { BsSendArrowDownFill } from "react-icons/bs";
 import { LuHistory } from "react-icons/lu";
 
 export const navLinks = [
-  { href: "/dashboard/home", icon: RiDashboard2Fill, label: "Dashboard" },
-  { href: "/dashboard/incomes", icon: FaMoneyBill, label: "Incomes" },
+  {
+    href: "/dashboard/home",
+    icon: RiDashboard2Fill,
+    label: "Dashboard",
+    comingSoon: false,
+  },
+  {
+    href: "/dashboard/incomes",
+    icon: FaMoneyBill,
+    label: "Incomes",
+    comingSoon: false,
+  },
   {
     href: "/dashboard/expenses",
     icon: BsSendArrowDownFill,
     label: "Expenses",
+    comingSoon: false,
   },
-  { href: "/dashboard/create", icon: IoAddCircleSharp, label: "Create" },
+  {
+    href: "/dashboard/create",
+    icon: IoAddCircleSharp,
+    label: "Create",
+    comingSoon: false,
+  },
 ];
 
 export const accountLinks = [
-  { href: "/dashboard/history", icon: LuHistory, label: "History" },
+  {
+    href: "/dashboard/history",
+    icon: LuHistory,
+    label: "History",
+    comingSoon: false,
+  },
   {
     href: "/dashboard/automatize",
     icon: FaWandMagicSparkles,
     label: "Automatize",
+    comingSoon: true,
   },
-  { href: "/dashboard/settings", icon: IoSettingsSharp, label: "Settings" },
+  {
+    href: "/dashboard/settings",
+    icon: IoSettingsSharp,
+    label: "Settings",
+    comingSoon: true,
+  },
 ];
 
 export const entryTypes = [

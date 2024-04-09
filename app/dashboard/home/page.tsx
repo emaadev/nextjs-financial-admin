@@ -12,6 +12,7 @@ import {
   Navbar,
 } from "@/components";
 import { NextResponse } from "next/server";
+import toast from "react-hot-toast";
 
 interface Entry {
   date: string;
@@ -101,10 +102,13 @@ export default function DashboardPage() {
       setInvestments(totalInvestments);
 
       if (entries.length === 0) {
+        toast("You have to add your first money movement!", {
+          icon: "💰",
+        });
         router.push("/dashboard/create");
       }
     } catch (error) {
-      NextResponse.error();
+      toast.error("An error has occured while retrieving entries.");
     } finally {
       setLoading(false);
     }

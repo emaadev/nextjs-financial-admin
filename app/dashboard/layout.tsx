@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { Toaster } from "react-hot-toast";
 
 import { Loading, Navigation } from "@/components";
 
@@ -32,6 +33,8 @@ export default function DashboardLayout({
       ) : (
         <section className="dashboard-container">{children}</section>
       )}
+
+      <Toaster />
     </main>
   );
 }

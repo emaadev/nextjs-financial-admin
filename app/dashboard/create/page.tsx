@@ -7,6 +7,7 @@ import { entryTypes } from "@/app/constants/data";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { PageHeader, Spinner } from "@/components";
 import { uuid } from "uuidv4";
+import toast from "react-hot-toast";
 
 export default function CreatePage() {
   const router = useRouter();
@@ -38,9 +39,10 @@ export default function CreatePage() {
       existingData.push(formData);
       localStorage.setItem("entries", JSON.stringify(existingData));
 
+      toast.success("Amount created successfully!");
       router.push("/dashboard/home");
     } catch (error) {
-      console.log("An error has occured while updating entry.");
+      toast.error("An error has occured while updating entry.");
     } finally {
       setIsLoading(false);
     }
@@ -88,7 +90,7 @@ export default function CreatePage() {
 
         {/* Inserted Amount */}
         <div className="form-group">
-          <label htmlFor="amount">Amount (USD $)</label>
+          <label htmlFor="amount">Amount ($ USD)</label>
 
           <input
             type="number"

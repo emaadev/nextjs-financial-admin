@@ -6,6 +6,7 @@ interface NavItemProps {
   children: React.ReactNode;
   isActive: boolean;
   setActive: (active: string) => void;
+  isOpen: boolean;
 }
 
 const NavItem = ({
@@ -14,11 +15,16 @@ const NavItem = ({
   children,
   isActive,
   setActive,
+  isOpen,
 }: NavItemProps) => {
   return (
-    <li className={`${isActive ? "active" : ""}`}>
+    <li
+      className={`transition-all duration-300 ease-in-out ${
+        isActive ? "active" : ""
+      }`}
+    >
       <Link onClick={() => setActive(href)} href={href}>
-        {icon} {children}
+        {icon} {isOpen && children}
       </Link>
     </li>
   );

@@ -9,6 +9,7 @@ import Loading from "./shared/Loading";
 import LoadingComponent from "./shared/LoadingComponent";
 import Filters from "./shared/Filters";
 import Spinner from "./shared/Spinner";
+import ComingSoon from "./shared/ComingSoon";
 
 import BarChart from "./charts/BarChart";
 import LineChart from "./charts/LineChart";
@@ -31,4 +32,5 @@ export {
   HistorySummary,
   LoadingComponent,
   Spinner,
+  ComingSoon,
 };

@@ -7,7 +7,7 @@ interface NavGroupProps {
 
 const NavGroup = ({ title, children }: NavGroupProps) => {
   return (
-    <div className="navigation-links__container">
+    <div className="navigation-links__container transition-all duration-300 ease-in-out">
       <span>{title}</span>
       <ul>{children}</ul>
     </div>
