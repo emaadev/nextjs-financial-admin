@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="dashboard-navbar">
       <section className="dashboard-navbar__user">
         {/* TODO: Change the name dinamically */}
-        <h2>Welcome back, {`Emanuel`}!</h2>
+        <h2>Welcome back!</h2>
         <p>You will see the total revenue of the month.</p>
       </section>
 

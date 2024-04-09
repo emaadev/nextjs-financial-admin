@@ -17,9 +17,10 @@ export default function IncomesPage() {
   const [entries, setEntries] = useState<Entry[]>([]);
 
   // Filtered and sorted entries for the table and chart
-  const filteredEntries = entries
-    .filter((entry) => entry.entryType === "income")
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const defaultChartData = Array.from({ length: 12 }, (_, index) => ({
+    x: new Date(0, index).toLocaleDateString("en-US", { month: "long" }),
+    y: 0,
+  }));
 
   useEffect(() => {
     const storedEntries = JSON.parse(localStorage.getItem("entries") || "[]");
@@ -37,12 +38,23 @@ export default function IncomesPage() {
   const lineChartData = [
     {
       id: "Incomes",
-      data: filteredEntries.map((entry) => ({
-        x: new Date(entry.date).toLocaleDateString("en-US", { month: "long" }), // Converts date to month name
-        y: entry.amount,
-      })),
+      data: entries
+        .filter((entry) => entry.entryType === "income")
+        .reduce((acc, entry) => {
+          const monthIndex = new Date(entry.date).getMonth();
+          acc[monthIndex].y += entry.amount;
+          return acc;
+        }, defaultChartData),
     },
   ];
+
+  const filteredEntries = entries
+    .filter((entry) => entry.entryType === "income")
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  const totalMovements = entries
+    .filter((entry) => entry.entryType === "income")
+    .reduce((acc, entry) => acc + entry.amount, 0);
 
   return (
     <section className="incomes-expenses__page">
@@ -50,6 +62,9 @@ export default function IncomesPage() {
 
       <div className="line-chart">
         <h2>Annual Analysis</h2>
+        <h4 className="text-green-800">
+          Total Movements: USD ${totalMovements}
+        </h4>
         <LineChart data={lineChartData} />
       </div>
 

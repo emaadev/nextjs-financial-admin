@@ -50,7 +50,7 @@ body,
 }
 
 .dashboard-page .history-summary {
-  @apply bg-white shadow-md rounded-xl p-2 overflow-y-auto overflow-x-hidden w-[30%] h-[20rem];
+  @apply bg-white shadow-md rounded-xl pt-2 overflow-y-auto overflow-x-hidden flex-1 h-[20rem];
 }
 
 .dashboard-page .history-summary span {
@@ -58,7 +58,7 @@ body,
 }
 
 .dashboard-page .history-summary table {
-  @apply max-h-[20rem];
+  @apply w-full max-h-[20rem];
 }
 
 .dashboard-page .history-summary::-webkit-scrollbar {
@@ -110,7 +110,7 @@ body,
 }
 
 .dashboard-page .bar-chart {
-  @apply bg-white rounded-xl shadow-md h-[20rem] w-[68%] p-2
+  @apply bg-white rounded-xl shadow-md h-[20rem] p-2 w-2/3
 }
 
 .dashboard-page .bar-chart span {
@@ -281,7 +281,7 @@ body,
   @apply px-4 py-1 rounded-lg text-white;
 }
 
-.entry-form .form-group input, .entry-form .form-group textarea {
+.entry-form .form-group input, .entry-form .form-group textarea, .entry-form .form-group select {
   @apply px-4 py-2 text-left rounded-lg bg-white shadow-md text-[var(--primary-color)] w-full;
 }
 
@@ -413,6 +413,14 @@ body,
 
 .incomes-expenses__page .line-chart span {
   @apply text-sm text-[var(--auxiliary-color)] font-medium ml-4;
+}
+
+.incomes-expenses__page .line-chart h2 {
+  @apply text-4xl;
+}
+
+.incomes-expenses__page .line-chart h4 {
+  @apply text-lg font-medium ml-4;
 }
 
 .incomes-expenses__page .history-table {
@@ -684,4 +692,14 @@ body,
   100% {
     transform: translateX(10px) scale(1);
   }
+}
+
+/* Global Messages */
+.not-found__message {
+  @apply mt-6 ml-6 text-sm text-[var(--primary-color)] font-light
+}
+
+/* Automatize Page */
+.automatize-page {
+  @apply flex items-center justify-start flex-wrap w-full gap-4 px-8;
 }

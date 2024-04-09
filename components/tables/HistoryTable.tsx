@@ -11,8 +11,9 @@ interface HistoryTableProps {
 }
 
 const HistoryTable = ({ entries, onDelete, title }: HistoryTableProps) => {
+
   return (
-    <div className="history-table">
+    <section className="history-table">
       <h2>{title}</h2>
       <table className="table-fixed">
         <thead>
@@ -24,28 +25,32 @@ const HistoryTable = ({ entries, onDelete, title }: HistoryTableProps) => {
         </thead>
 
         <tbody>
-          {entries.map((entry: any) => (
-            <tr key={entry.id} className={entry.entryType}>
-              <td>{formatTime(entry.date)}</td>
-              <td>${entry.amount}</td>
-              <td>{entry.comments}</td>
+          {entries.length === 0 ? (
+            <span className="pt-4 not-found__message">No movements found.</span>
+          ) : (
+            entries.map((entry: any) => (
+              <tr key={entry.id} className={entry.entryType}>
+                <td>{formatTime(entry.date)}</td>
+                <td>${entry.amount}</td>
+                <td>{entry.comments}</td>
 
-              <td className="edit-buttons">
-                <Link
-                  href={`/dashboard/history/edit/${entry.id}`}
-                  className="edit"
-                >
-                  <FaRegEdit />
-                </Link>
-                <button className="delete" onClick={() => onDelete(entry.id)}>
-                  <MdOutlineDeleteOutline />
-                </button>
-              </td>
-            </tr>
-          ))}
+                <td className="edit-buttons">
+                  <Link
+                    href={`/dashboard/history/edit/${entry.id}`}
+                    className="edit"
+                  >
+                    <FaRegEdit />
+                  </Link>
+                  <button className="delete" onClick={() => onDelete(entry.id)}>
+                    <MdOutlineDeleteOutline />
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 };
 

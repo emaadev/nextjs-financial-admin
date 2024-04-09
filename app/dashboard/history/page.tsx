@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { PageHeader } from "@/components";
-import { toRelativeTime } from "@/app/lib/getRelativeTime";
+
 import {
   getYear,
   getDayOfWeek,
@@ -13,6 +13,7 @@ import {
 
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import formatTime from "@/app/lib/formatTime";
 
 interface Entry {
   id: any;
@@ -102,26 +103,33 @@ export default function HistoryPage() {
           </thead>
 
           <tbody>
-            {filteredEntries.map((entry) => (
-              <tr key={entry.id} className={entry.entryType}>
-                <td>{entry.entryType}</td>
-                <td>{toRelativeTime(entry.date)}</td>
-                <td>
-                  {entry.entryType === "expense" ? "-" : "+"} ${entry.amount}
-                </td>
-                <td>{entry.comments}</td>
+            {filteredEntries.length === 0 ? (
+              <span className="not-found__message">No movements found.</span>
+            ) : (
+              filteredEntries.map((entry) => (
+                <tr key={entry.id} className={entry.entryType}>
+                  <td>{entry.entryType}</td>
+                  <td>{formatTime(entry.date)}</td>
+                  <td>
+                    {entry.entryType === "expense" ? "-" : "+"} ${entry.amount}
+                  </td>
+                  <td>{entry.comments}</td>
 
-                <td className="edit-buttons">
-                  <Link href={`history/edit/${entry.id}`} className="edit">
-                    <FaRegEdit />
-                  </Link>
+                  <td className="edit-buttons">
+                    <Link href={`history/edit/${entry.id}`} className="edit">
+                      <FaRegEdit />
+                    </Link>
 
-                  <button className="delete" onClick={() => onDelete(entry.id)}>
-                    <MdOutlineDeleteOutline />
-                  </button>
-                </td>
-              </tr>
-            ))}
+                    <button
+                      className="delete"
+                      onClick={() => onDelete(entry.id)}
+                    >
+                      <MdOutlineDeleteOutline />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

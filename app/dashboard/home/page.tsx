@@ -1,6 +1,7 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   BarChart,
@@ -20,6 +21,8 @@ interface Entry {
 }
 
 export default function DashboardPage() {
+  const router = useRouter();
+
   // All the entries in the local storage
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -96,12 +99,16 @@ export default function DashboardPage() {
       setExpenses(totalExpenses);
       setSavings(totalSavings);
       setInvestments(totalInvestments);
+
+      if (entries.length === 0) {
+        router.push("/dashboard/create");
+      }
     } catch (error) {
       NextResponse.error();
     } finally {
       setLoading(false);
     }
-  }, [selectedMonth]);
+  }, [router, selectedMonth]);
 
   return (
     <section className="dashboard-page">
@@ -124,12 +131,16 @@ export default function DashboardPage() {
         <InfoBox count={investments} type={"investments"} loading={loading} />
       </div>
 
-      <div className="bar-chart">
-        <span>Movements Summary</span>
-        {loading ? <LoadingComponent /> : <BarChart data={data} />}
-      </div>
+      <div className="flex gap-4 flex-wrap w-full">
+        <div className="bar-chart">
+          <span>Movements Summary</span>
+          {loading ? <LoadingComponent /> : <BarChart data={data} />}
+        </div>
 
-      <HistorySummary entries={entries} />
+        <div className="history-summary">
+          <HistorySummary entries={entries} />
+        </div>
+      </div>
     </section>
   );
 }

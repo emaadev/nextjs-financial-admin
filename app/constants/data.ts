@@ -1,4 +1,5 @@
 import { FaMoneyBill } from "react-icons/fa";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 import { IoAddCircleSharp, IoSettingsSharp } from "react-icons/io5";
 import { RiDashboard2Fill } from "react-icons/ri";
 import { BsSendArrowDownFill } from "react-icons/bs";
@@ -17,6 +18,11 @@ export const navLinks = [
 
 export const accountLinks = [
   { href: "/dashboard/history", icon: LuHistory, label: "History" },
+  {
+    href: "/dashboard/automatize",
+    icon: FaWandMagicSparkles,
+    label: "Automatize",
+  },
   { href: "/dashboard/settings", icon: IoSettingsSharp, label: "Settings" },
 ];
 

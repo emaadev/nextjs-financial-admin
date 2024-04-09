@@ -1,27 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { entryTypes } from "@/app/constants/data";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { PageHeader, Spinner } from "@/components";
+import { PageHeader } from "@/components";
 import { uuid } from "uuidv4";
 
-export default function CreatePage() {
+export default function Automatize() {
   const router = useRouter();
-
   const [entryType, setEntryType] = useState<string>();
   const [amount, setAmount] = useState<number>();
   const [date, setDate] = useState<string>();
   const [comments, setComments] = useState<string>();
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [frequency, setFrequency] = useState<string>("monthly");
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setIsLoading(true);
 
     const formData = {
       id: uuid(),
@@ -29,43 +25,31 @@ export default function CreatePage() {
       amount,
       date,
       comments,
+      frequency,
     };
 
     try {
-      // Update the actual data if there is another existing data
       const existingData = JSON.parse(localStorage.getItem("entries") || "[]");
-
       existingData.push(formData);
       localStorage.setItem("entries", JSON.stringify(existingData));
 
       router.push("/dashboard/home");
     } catch (error) {
       console.log("An error has occured while updating entry.");
-    } finally {
-      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (entryType && amount && date && comments) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  }, [amount, comments, date, entryType]);
-
   return (
-    <section className="create-page">
+    <section className="automatize-page">
       <PageHeader
-        title={"Create an entry"}
-        subtitle={"Select the type of the entry and create it."}
+        title={"Automatize an entry"}
+        subtitle={"Create an automatical entry."}
       />
 
       <form className="entry-form" onSubmit={handleSubmit}>
         {/* Entry Type of the Amount */}
         <div className="form-group">
           <label htmlFor="type">Type</label>
-
           <div id="type" className="type-selector">
             {entryTypes.map((item) => (
               <button
@@ -89,7 +73,6 @@ export default function CreatePage() {
         {/* Inserted Amount */}
         <div className="form-group">
           <label htmlFor="amount">Amount (USD $)</label>
-
           <input
             type="number"
             className="form-control"
@@ -103,9 +86,8 @@ export default function CreatePage() {
         {/* Date of creation */}
         <div className="form-group">
           <label htmlFor="date">Date</label>
-
           <input
-            type="datetime-local"
+            type="date"
             id="date"
             name="date"
             value={date}
@@ -116,7 +98,6 @@ export default function CreatePage() {
         {/* Description of the inserted amount */}
         <div className="form-group">
           <label htmlFor="comments">Comments</label>
-
           <textarea
             id="comments"
             placeholder="Insert a description for the entry"
@@ -125,13 +106,23 @@ export default function CreatePage() {
           />
         </div>
 
-        <button
-          type="submit"
-          className={`submit-button ${isDisabled && "opacity-60"}`}
-          disabled={isDisabled && isLoading}
-        >
+        {/* Frequency */}
+        <div className="form-group">
+          <label htmlFor="frequency">Frequency</label>
+          <select
+            id="frequency"
+            value={frequency}
+            onChange={(e) => setFrequency(e.target.value)}
+          >
+            <option value="monthly">Monthly</option>
+            <option value="weekly">Weekly</option>
+            <option value="daily">Daily</option>
+          </select>
+        </div>
+
+        <button type="submit" className="submit-button">
           <span>Create</span>
-          {isLoading ? <Spinner /> : <IoMdAddCircleOutline />}
+          <IoMdAddCircleOutline />
         </button>
       </form>
     </section>

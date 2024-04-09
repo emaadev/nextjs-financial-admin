@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { ResponsiveBar } from "@nivo/bar";
 
 interface BarChartProps {
@@ -114,7 +115,22 @@ const barTheme = {
 };
 
 const BarChart = ({ data }: BarChartProps) => {
-  return (
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (
+      (data[0].incomes &&
+        data[0].expenses &&
+        data[0].savings &&
+        data[0].investments) === 0
+    ) {
+      setIsEmpty(true);
+    }
+  }, [data]);
+
+  return isEmpty === true ? (
+    <p className="not-found__message">No movements found.</p>
+  ) : (
     <ResponsiveBar
       data={data}
       keys={["incomes", "expenses", "savings", "investments"]}

@@ -8,6 +8,7 @@ import PageHeader from "./shared/PageHeader";
 import Loading from "./shared/Loading";
 import LoadingComponent from "./shared/LoadingComponent";
 import Filters from "./shared/Filters";
+import Spinner from "./shared/Spinner";
 
 import BarChart from "./charts/BarChart";
 import LineChart from "./charts/LineChart";
@@ -29,4 +30,5 @@ export {
   Filters,
   HistorySummary,
   LoadingComponent,
+  Spinner,
 };
