@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -11,44 +11,53 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { PageHeader } from "@/components";
 import { uuid } from "uuidv4";
 
+interface Entry {
+  id: string;
+  entryType: string;
+  amount: number;
+  date: string;
+  comments: string;
+  frequency: string;
+}
+
 export default function Automatize() {
   const router = useRouter();
-  const [entryType, setEntryType] = useState<string>();
-  const [amount, setAmount] = useState<number>();
-  const [date, setDate] = useState<string>();
-  const [comments, setComments] = useState<string>();
+  const [existingData, setExistingData] = useState<Entry[]>([]);
+
+  const [entryType, setEntryType] = useState<string>("");
+  const [amount, setAmount] = useState<number>(0);
+  const [date, setDate] = useState<string>("");
+  const [comments, setComments] = useState<string>("");
   const [frequency, setFrequency] = useState<string>("monthly");
 
-  const existingData = JSON.parse(localStorage.getItem("entries") || "[]");
+  useEffect(() => {
+    const data: Entry[] = JSON.parse(localStorage.getItem("entries") || "[]");
+    setExistingData(data);
+  }, []);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formData = {
+    const formData: Entry = {
       id: uuid(),
-      entryType,
-      amount,
-      date,
-      comments,
-      frequency,
+      entryType: entryType,
+      amount: amount,
+      date: date,
+      comments: comments,
+      frequency: frequency,
     };
 
     try {
       existingData.push(formData);
       localStorage.setItem("entries", JSON.stringify(existingData));
-
       router.push("/dashboard/home");
     } catch (error) {
-      console.log("An error has occured while updating entry.");
+      console.log("An error has occurred while updating entry.");
     }
   };
 
   const handleEventClick = (info: any) => {
-    // Access the event object
     const event = info.event;
-    // You can use the event object to get the event details and perform actions
-    console.log(event.title, event.start);
-    // Set the date to the event's start date
     setDate(event.start.toISOString().split("T")[0]);
   };
 
@@ -56,7 +65,7 @@ export default function Automatize() {
     <section className="automatize-page">
       <PageHeader
         title={"Automatize an entry"}
-        subtitle={"Create an automatical entry."}
+        subtitle={"Create an automatic entry."}
       />
 
       <div className="form-calendar__container">
@@ -134,17 +143,17 @@ export default function Automatize() {
             </select>
           </div>
 
-          {/* <button type="submit" className="submit-button">
+          <button type="submit" className="submit-button">
             <span>Create</span>
             <IoMdAddCircleOutline />
-          </button> */}
+          </button>
         </form>
 
         <FullCalendar
           plugins={[interactionPlugin, dayGridPlugin]}
           initialView="dayGridMonth"
           eventClick={handleEventClick}
-          events={JSON.parse(localStorage.getItem("entries") || "[]")
+          events={existingData
             .filter((entry: any) => entry.entryType === "income")
             .map((entry: any) => ({
               title: entry.amount,
