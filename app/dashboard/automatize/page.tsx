@@ -19,6 +19,8 @@ export default function Automatize() {
   const [comments, setComments] = useState<string>();
   const [frequency, setFrequency] = useState<string>("monthly");
 
+  const existingData = JSON.parse(localStorage.getItem("entries") || "[]");
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
@@ -32,7 +34,6 @@ export default function Automatize() {
     };
 
     try {
-      const existingData = JSON.parse(localStorage.getItem("entries") || "[]");
       existingData.push(formData);
       localStorage.setItem("entries", JSON.stringify(existingData));
 
